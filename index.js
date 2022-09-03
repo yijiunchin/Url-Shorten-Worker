@@ -140,7 +140,7 @@ async function handleRequest(request) {
       }
 
       if(req_keyPhLen < len_limit && req_keyPhLen > 0){
-        return new Response(`{"status":500,"key": "", "error":"Error: Custom shortURL is too short."}`, {
+        return new Response(`{"status":500,"key": "", "error":"Error: Custom short URL is too short."}`, {
           headers: response_header,
         })
       }
@@ -155,7 +155,7 @@ async function handleRequest(request) {
       if (custom_link && (req_keyPhrase != "")){
         let is_exist=await LINKS.get(req_keyPhrase)
         if (is_exist != null) {
-          return new Response(`{"status":500,"key": "", "error":"Error: Custom shortURL existed."}`, {
+          return new Response(`{"status":500,"key": "", "error":"Error: Custom short URL existed."}`, {
             headers: response_header,
           })
         }else{
