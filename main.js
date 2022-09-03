@@ -114,11 +114,11 @@ function addUrlToList(shortUrl, longUrl) {
   btn.classList.add("btn", "btn-danger")
   btn.setAttribute('onclick', 'deleteShortUrl(\"' + shortUrl + '\")')
   btn.setAttribute('id', 'delBtn-' + shortUrl)
-  btn.innerText = "X"
+  btn.innerText = "Remove"
   child.appendChild(btn)
 
   let text = document.createElement('span')
-  text.innerText = window.location.host + "/" + shortUrl + " " + longUrl
+  text.innerText = window.location.origin + "/" + shortUrl + " 🔗 " + longUrl
   child.appendChild(text)
 
   urlList.append(child)
