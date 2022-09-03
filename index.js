@@ -97,17 +97,17 @@ async function handleRequest(request) {
       let req_keyPhrase=req["keyPhrase"]
       let req_password=req["password"]
 
-      // console.log(req_url)
-      // console.log(req_keyPhrase)
-      // console.log(req_password)
+      console.log(req_url)
+      console.log(req_keyPhrase)
+      console.log(req_password)
       if(!await checkURL(req_url)){
-        return new Response(`{"status":500,"key": "", "error":"Error: Url illegal."}`, {
+        return new Response(`{"status":500,"key": "", "error":": Error: Url illegal."}`, {
           headers: response_header,
         })
       }
 
       if (req_password != password_value) {
-        return new Response(`{"status":500,"key": "", "error":"Error: Invalid password."}`, {
+        return new Response(`{"status":500,"key": "", "error":": Error: Invalid password."}`, {
           headers: response_header,
         })
       }
@@ -116,7 +116,7 @@ async function handleRequest(request) {
       if (config.custom_link && (req_keyPhrase != "")){
         let is_exist=await LINKS.get(req_keyPhrase)
         if (is_exist != null) {
-          return new Response(`{"status":500,"key": "", "error":"Error: Custom shortURL existed."}`, {
+          return new Response(`{"status":500,"key": "", "error":": Error: Custom shortURL existed."}`, {
             headers: response_header,
           })
         }else{
@@ -143,7 +143,7 @@ async function handleRequest(request) {
           headers: response_header,
         })
       }else{
-        return new Response(`{"status":500, "key": "", "error":"Error:Reach the KV write limitation."}`, {
+        return new Response(`{"status":500, "key": "", "error":": Error:Reach the KV write limitation."}`, {
           headers: response_header,
         })
       }
@@ -152,7 +152,7 @@ async function handleRequest(request) {
       let req_password=req["password"]
 
       if (req_password != password_value) {
-        return new Response(`{"status":500,"key": "", "error":"Error: Invalid password."}`, {
+        return new Response(`{"status":500,"key": "", "error":": Error: Invalid password."}`, {
           headers: response_header,
         })
       }
