@@ -1,3 +1,11 @@
+// 查KV中的password对应的值
+const password_value = typeof(PASSWORD)!="undefined" ? PASSWORD
+    : 'add'
+const len = typeof(LEN)!="undefined" ? parseInt(LEN)
+    : 6
+const len_limit = typeof(LEN_LIMIT)!="undefined" ? parseInt(LEN_LIMIT)
+    : 3
+
 const config = {
 no_ref: "off", //Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
 theme:"",//Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
@@ -86,9 +94,6 @@ async function is_url_exist(url_sha512){
 async function handleRequest(request) {
   console.log(request)
 
-  // 查KV中的password对应的值
-  const password_value = await LINKS.get("password");
-
   if (request.method === "POST") {
     let req=await request.json()
     let req_cmd=req["cmd"]
@@ -96,12 +101,19 @@ async function handleRequest(request) {
       let req_url=req["url"]
       let req_keyPhrase=req["keyPhrase"]
       let req_password=req["password"]
+      let req_keyPhLen=req_keyPhrase.length
 
       // console.log(req_url)
       // console.log(req_keyPhrase)
       // console.log(req_password)
       if(!await checkURL(req_url)){
         return new Response(`{"status":500,"key": "", "error":"Error: Url illegal."}`, {
+          headers: response_header,
+        })
+      }
+
+      if(req_keyPhLen < len_limit){
+        return new Response(`{"status":500,"key": "", "error":"Error: Custom shortURL is too short."}`, {
           headers: response_header,
         })
       }
@@ -143,7 +155,7 @@ async function handleRequest(request) {
           headers: response_header,
         })
       }else{
-        return new Response(`{"status":500, "key": "", "error":"Error:Reach the KV write limitation."}`, {
+        return new Response(`{"status":500, "key": "", "error":"Error: Reach the KV write limitation."}`, {
           headers: response_header,
         })
       }
