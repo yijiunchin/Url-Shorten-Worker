@@ -127,8 +127,8 @@ function addUrlToList(shortUrl, longUrl) {
 
   let row = document.createElement('div')
   row.classList.add("row", "align-items-center")
-  row.appendChild(rol_a)
-  row.appendChild(rol_b)
+  row.appendChild(col_a)
+  row.appendChild(col_b)
 
   let child = document.createElement('div')
   child.classList.add("list-group-item")
