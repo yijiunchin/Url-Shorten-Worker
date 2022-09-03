@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#ffc107">
+    <meta http-equiv="content-type" content="txt/html">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Place Code">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon-precomposed" sizes="any" href="https://fo.lioil.live/iou/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="any"  href="https://fo.lioil.live/iou/favicon.png">
+    <meta name="description" content="I owe you. I see you.">
+    <title>iou.icu Shortener</title>
+
+    <style>
+      .container {
+        max-width: 680px;
+      }
+
+      .hide {
+        display: none;
+      }
+
+      #record {
+        display: none;
+      }
+
+      @media (prefers-color-scheme: light) { 
+        body {
+          color: #2a2b2c; 
+          background: #f8f9fa;
+        }
+        }
+
+      @media (prefers-color-scheme: light) { 
+        body {
+          color: #2a2b2c; 
+          background: #f8f9fa;
+        }
+        }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="py-5 text-center">
+        <h1 class="font-weight-bold">😎</h1>
+        <h2 class="font-weight-bold">I owe you. I see you.</h2>
+        <p class="lead">I owe you for the cold mornings. Short sleeves and goose-bumps and a warm arm wrapped tightly around my shoulders. - Make some people think that I am the description.</p>
+      </div>
+
+      <div class="mb-3">
+        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="Enter the URL here" oninput="loadUrlList()">
+      </div>
+
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon2">https://iou.icu/</span>
+        </div>
+        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="Optional">
+      </div>
+
+      <label class="form-check-label hide" for="credit">Password</label>
+      <div class="mb-3">
+        <input class="form-control hide" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col">
+        </div>
+        <div class="col-5 text-center">
+          <button class="btn btn-warning btn-block my-2" type="button" onclick='shorturl()' id="addBtn">Shorten it</button>
+        </div>
+        <div class="col">
+        </div>
+      </div>
+
+      <div id="record"> 
+
+        <hr class="my-4">
+
+        <label class="form-check-label" for="credit">Records</label>
+
+        <div class="list-group mb-3" id="urlList">
+          <div class="list-group-item">
+            <div class="row align-items-center">
+              <div class="col">
+                <span>https://icu.iou/</span>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-danger btn-sm" onclick='deleteShortUrl("4rEbzm")'>Romeve</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row align-items-center">
+              <div class="col">
+                <span>I owe you for the cold mornings. Short sleeves and goose-bumps and a warm arm wrapped tightly around my shoulders.</span>
+              </div>
+              <div class="col-auto">
+                <button type="button" class="btn btn-danger btn-sm" onclick='deleteShortUrl("8NKY34")'>Romeve</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end hide">
+          <button class="btn btn-primary mr-2" type="button" onclick='loadUrlList()' id="loadListBtn">Load Record</button>
+          <button class="btn btn-danger " type="button" onclick='clearLocalStorage()' id="clearlocalStgBtn">Clear Record</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="resultModalLabel">Result</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="result">No result</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="Copied!">Copy</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>    
+          </div>
+        </div>
+      </div>
+    </div>         
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/smilonely/Url-Shorten-Worker@gh-pages/main.min.js" crossorigin="anonymous"></script>
+
+  </body>
+</html>
