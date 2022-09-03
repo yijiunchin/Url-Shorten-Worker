@@ -28,7 +28,7 @@ function shorturl() {
         // add to urlList on the page
         addUrlToList(keyPhrase, valueLongURL)
 
-        document.getElementById("result").innerHTML = window.location.host + "/" + res.key;
+        document.getElementById("result").innerHTML = window.location.origin + "/" + res.key;
       } else {
         document.getElementById("result").innerHTML = res.error;
       }
@@ -104,22 +104,35 @@ function loadUrlList() {
 }
 
 function addUrlToList(shortUrl, longUrl) {
+  let record = document.getElementById("record")
+  record.style.display = 'block';
+
   let urlList = document.querySelector("#urlList")
 
-  let child = document.createElement('div')
-  child.classList.add("list-group-item")
+  let col_a = document.createElement('div')
+  col_a.classList.add("col")
+  let text = document.createElement('span')
+  text.innerText = window.location.origin + "/" + shortUrl + " 🔗 " + longUrl
+  col_a.appendChild(text)
 
+  let col_b = document.createElement('div')
+  col_b.classList.add("col-auto")
   let btn = document.createElement('button')
   btn.setAttribute('type', 'button')
-  btn.classList.add("btn", "btn-danger")
+  btn.classList.add("btn", "btn-danger", "btn-sm")
   btn.setAttribute('onclick', 'deleteShortUrl(\"' + shortUrl + '\")')
   btn.setAttribute('id', 'delBtn-' + shortUrl)
   btn.innerText = "Remove"
-  child.appendChild(btn)
+  col_b.appendChild(btn)
 
-  let text = document.createElement('span')
-  text.innerText = window.location.origin + "/" + shortUrl + " 🔗 " + longUrl
-  child.appendChild(text)
+  let row = document.createElement('div')
+  row.classList.add("row align-items-center")
+  row.appendChild(rol_a)
+  row.appendChild(rol_b)
+
+  let child = document.createElement('div')
+  child.classList.add("list-group-item")
+  child.appendChild(row)
 
   urlList.append(child)
 }
