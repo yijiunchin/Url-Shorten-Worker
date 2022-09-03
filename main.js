@@ -6,10 +6,10 @@ function shorturl() {
   }
 
   document.getElementById("addBtn").disabled = true;
-  document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Please wait...';
+  document.getElementById("addBtn").innerHTML = "<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Please wait...";
   fetch(window.location.pathname, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ cmd: "add", url: document.querySelector("#longURL").value, keyPhrase: document.querySelector("#keyPhrase").value, password: document.querySelector("#passwordText").value })
   }).then(function (response) {
     return response.json();
@@ -17,7 +17,7 @@ function shorturl() {
     .then(function (myJson) {
       res = myJson;
       document.getElementById("addBtn").disabled = false;
-      document.getElementById("addBtn").innerHTML = 'Shorten it';
+      document.getElementById("addBtn").innerHTML = "Shorten it";
 
       // 成功生成短链
       if (res.status == "200") {
@@ -33,31 +33,31 @@ function shorturl() {
         document.getElementById("result").innerHTML = res.error;
       }
 
-      $('#resultModal').modal('show')
+      $("#resultModal").modal("show")
 
     }).catch(function (err) {
       alert("Unknow error. Please retry!");
       console.log(err);
       document.getElementById("addBtn").disabled = false;
-      document.getElementById("addBtn").innerHTML = 'Shorten it';
+      document.getElementById("addBtn").innerHTML = "Shorten it";
     })
 }
 function copyurl(id, attr) {
   let target = null;
 
   if (attr) {
-    target = document.createElement('div');
-    target.id = 'tempTarget';
-    target.style.opacity = '0';
+    target = document.createElement("div");
+    target.id = "tempTarget";
+    target.style.opacity = "0";
     if (id) {
-      let curNode = document.querySelector('#' + id);
+      let curNode = document.querySelector("#" + id);
       target.innerText = curNode[attr];
     } else {
       target.innerText = attr;
     }
     document.body.appendChild(target);
   } else {
-    target = document.querySelector('#' + id);
+    target = document.querySelector("#" + id);
   }
 
   try {
@@ -65,11 +65,11 @@ function copyurl(id, attr) {
     range.selectNode(target);
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(range);
-    document.execCommand('copy');
+    document.execCommand("copy");
     window.getSelection().removeAllRanges();
-    console.log('Copy success')
+    console.log("Copy success")
   } catch (e) {
-    console.log('Copy error')
+    console.log("Copy error")
   }
 
   if (attr) {
@@ -105,32 +105,32 @@ function loadUrlList() {
 
 function addUrlToList(shortUrl, longUrl) {
   let record = document.getElementById("record")
-  record.style.display = 'block';
+  record.style.display = "block";
 
   let urlList = document.querySelector("#urlList")
 
-  let col_a = document.createElement('div')
+  let col_a = document.createElement("div")
   col_a.classList.add("col")
-  let text = document.createElement('span')
+  let text = document.createElement("span")
   text.innerText = window.location.origin + "/" + shortUrl + " 🔗 " + longUrl
   col_a.appendChild(text)
 
-  let col_b = document.createElement('div')
+  let col_b = document.createElement("div")
   col_b.classList.add("col-auto")
-  let btn = document.createElement('button')
-  btn.setAttribute('type', 'button')
+  let btn = document.createElement("button")
+  btn.setAttribute("type", "button")
   btn.classList.add("btn", "btn-danger", "btn-sm")
-  btn.setAttribute('onclick', 'deleteShortUrl(\"' + shortUrl + '\")')
-  btn.setAttribute('id', 'delBtn-' + shortUrl)
+  btn.setAttribute("onclick", "deleteShortUrl(\"" + shortUrl + "\")")
+  btn.setAttribute("id", "delBtn-" + shortUrl)
   btn.innerText = "Remove"
   col_b.appendChild(btn)
 
-  let row = document.createElement('div')
-  row.classList.add("row align-items-center")
+  let row = document.createElement("div")
+  row.classList.add("row", "align-items-center")
   row.appendChild(rol_a)
   row.appendChild(rol_b)
 
-  let child = document.createElement('div')
+  let child = document.createElement("div")
   child.classList.add("list-group-item")
   child.appendChild(row)
 
@@ -144,12 +144,12 @@ function clearLocalStorage() {
 function deleteShortUrl(delKeyPhrase) {
   // 按钮
   document.getElementById("delBtn-" + delKeyPhrase).disabled = true;
-  document.getElementById("delBtn-" + delKeyPhrase).innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span>';
+  document.getElementById("delBtn-" + delKeyPhrase).innerHTML = "<span class="spinner-border spinner-border-sm" role="status"></span>";
 
   // 从KV中删除
   fetch(window.location.pathname, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ cmd: "del", keyPhrase: delKeyPhrase, password: document.querySelector("#passwordText").value })
   }).then(function (response) {
     return response.json();
@@ -170,7 +170,7 @@ function deleteShortUrl(delKeyPhrase) {
         document.getElementById("result").innerHTML = res.error;
       }
 
-      $('#resultModal').modal('show')
+      $("#resultModal").modal("show")
 
     }).catch(function (err) {
       alert("Unknow error. Please retry!");
@@ -179,7 +179,7 @@ function deleteShortUrl(delKeyPhrase) {
 }
 
 $(function () {
-  $('[data-toggle="popover"]').popover()
+  $("[data-toggle="popover"]").popover()
 })
 
 loadUrlList()
