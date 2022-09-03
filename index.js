@@ -1,14 +1,35 @@
-// 查KV中的password对应的值
+const repo_version = typeof(REPO_VERSION)!="undefined" ? REPO_VERSION
+    : "@latest"
 const password_value = typeof(PASSWORD)!="undefined" ? PASSWORD
-    : 'add'
+    : "add"
+//The domain name of the deployed website
+const url_exclude = typeof(URL_EXCLUDE)!="undefined" ? URL_EXCLUDE
+    : "//iou.icu"
 const len = typeof(LEN)!="undefined" ? parseInt(LEN)
     : 6
 const len_limit = typeof(LEN_LIMIT)!="undefined" ? parseInt(LEN_LIMIT)
     : 3
+//Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
+const no_ref = typeof(NO_REF)!="undefined" ? NO_REF
+    : "off"
+//Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
+const theme = typeof(THEME)!="undefined" ? THEME
+    : ""
+const error = typeof(ERROR)!="undefined" ? ERROR
+    : ""
+//Allow Cross-origin resource sharing for API requests.
+const cors = typeof(CORS)!="undefined" ? CORS
+    : ""
+//If it is true, the same long url will be shorten into the same short url
+const unique_link = typeof(UNIQUE_LINK)!="undefined" ? UNIQUE_LINK
+    : false
+//Allow users to customize the short url.
+const custom_link = typeof(CUSTOM_LINK)!="undefined" ? CUSTOM_LINK
+    : true
 
 const config = {
 no_ref: "off", //Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
-theme:"",//Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
+theme:"",
 error:"",
 cors: "on",//Allow Cross-origin resource sharing for API requests.
 unique_link:false,//If it is true, the same long url will be shorten into the same short url
@@ -27,7 +48,7 @@ let response_header={
   "content-type": "text/html;charset=UTF-8",
 } 
 
-if (config.cors=="on"){
+if (cors=="on"){
   response_header={
   "content-type": "text/html;charset=UTF-8",
   "Access-Control-Allow-Origin":"*",
@@ -37,9 +58,9 @@ if (config.cors=="on"){
 
 async function randomString(len) {
   len = len || 6;
-  let $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
+  let $chars = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678";    /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/
   let maxPos = $chars.length;
-  let result = '';
+  let result = "";
   for (i = 0; i < len; i++) {
     result += $chars.charAt(Math.floor(Math.random() * maxPos));
   }
@@ -56,7 +77,7 @@ async function sha512(url){
       url, // The data you want to hash as an ArrayBuffer
     )
     const hashArray = Array.from(new Uint8Array(url_digest)); // convert buffer to byte array
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     //console.log(hashHex)
     return hashHex
 }
@@ -65,7 +86,7 @@ async function checkURL(URL){
     let Expression=/http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
     let objExp=new RegExp(Expression);
     if(objExp.test(str)==true){
-      if (str[0] == 'h')
+      if (str[0] == "h")
         return true;
       else
         return false;
@@ -107,12 +128,18 @@ async function handleRequest(request) {
       // console.log(req_keyPhrase)
       // console.log(req_password)
       if(!await checkURL(req_url)){
-        return new Response(`{"status":500,"key": "", "error":"Error: Url illegal."}`, {
+        return new Response(`{"status":500,"key": "", "error":"Error: URL illegal."}`, {
           headers: response_header,
         })
       }
 
-      if(req_keyPhLen < len_limit){
+      if(req_url.indexOf(url_exclude) != -1){
+        return new Response(`{"status":500,"key": "", "error":"Error: URL illegal."}`, {
+          headers: response_header,
+        })
+      }
+
+      if(req_keyPhLen < len_limit && req_keyPhLen > 0){
         return new Response(`{"status":500,"key": "", "error":"Error: Custom shortURL is too short."}`, {
           headers: response_header,
         })
@@ -125,7 +152,7 @@ async function handleRequest(request) {
       }
 
       let stat,random_key
-      if (config.custom_link && (req_keyPhrase != "")){
+      if (custom_link && (req_keyPhrase != "")){
         let is_exist=await LINKS.get(req_keyPhrase)
         if (is_exist != null) {
           return new Response(`{"status":500,"key": "", "error":"Error: Custom shortURL existed."}`, {
@@ -135,7 +162,7 @@ async function handleRequest(request) {
           random_key = req_keyPhrase
           stat, await LINKS.put(req_keyPhrase, req_url)
         }
-      } else if (config.unique_link){
+      } else if (unique_link){
         let url_sha512 = await sha512(req_url)
         let url_key = await is_url_exist(url_sha512)
         if(url_key){
@@ -187,8 +214,10 @@ async function handleRequest(request) {
 
   console.log(path)
   if(!path){
-    const html= await fetch("https://smilonely.github.io/Url-Shorten-Worker/"+config.error+"/index.html")
-    return new Response(await html.text(), {
+    let index_e= await fetch("https://cdn.jsdelivr.net/gh/smilonely/Url-Shorten-Worker"+repo_version+"/"+error+"/index.html")
+    index_e=await index_e.text()
+    index_e=index_e.replaceAll(/__REPO_VERSION__/gm, repo_version)
+    return new Response(index_e, {
       headers: {
         "content-type": "text/html;charset=UTF-8",
       },
@@ -197,9 +226,10 @@ async function handleRequest(request) {
   
   // 如果path符合password 显示应用界面
   if (path==password_value){  
-    let index= await fetch("https://smilonely.github.io/Url-Shorten-Worker/"+config.theme+"/index.html")
+    let index= await fetch("https://cdn.jsdelivr.net/gh/smilonely/Url-Shorten-Worker"+repo_version+"/"+theme+"/index.html")
     index=await index.text()
-    index=index.replace(/__PASSWORD__/gm, password_value)
+    index=index.replaceAll(/__REPO_VERSION__/gm, repo_version)
+    index=index.replaceAll(/__PASSWORD__/gm, password_value)
     return new Response(index, {
       headers: {
         "content-type": "text/html;charset=UTF-8",
@@ -218,7 +248,7 @@ async function handleRequest(request) {
   console.log(value)
   
   if (location) {
-    if (config.no_ref=="on"){
+    if (no_ref=="on"){
       let no_ref= await fetch("https://smilonely.github.io/Url-Shorten-Worker/no-ref.html")
       no_ref=await no_ref.text()
       no_ref=no_ref.replace(/{Replace}/gm, location)
