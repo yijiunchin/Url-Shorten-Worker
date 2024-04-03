@@ -146,7 +146,7 @@ async function handleRequest(request) {
       }
 
       if (req_password != password_value) {
-        return new Response(`{"status":500,"key": "", "error":"Error: Invalid password."}`, {
+        return new Response(`{"status":500,"key": "", "error":"Error: Servers occupied by cats. We're herding them out! 🐱"}`, {
           headers: response_header,
         })
       }
@@ -155,7 +155,7 @@ async function handleRequest(request) {
       if (custom_link && (req_keyPhrase != "")){
         let is_exist=await LINKS.get(req_keyPhrase)
         if (is_exist != null) {
-          return new Response(`{"status":500,"key": "", "error":"Error: Custom short URL existed."}`, {
+          return new Response(`{"status":500,"key": "", "error":"Error: Custom short URL is not available."}`, {
             headers: response_header,
           })
         }else{
@@ -191,7 +191,7 @@ async function handleRequest(request) {
       let req_password=req["password"]
 
       if (req_password != password_value) {
-        return new Response(`{"status":500,"key": "", "error":"Error: Invalid password."}`, {
+        return new Response(`{"status":500,"key": "", "error":"Error: Server error."}`, {
           headers: response_header,
         })
       }
