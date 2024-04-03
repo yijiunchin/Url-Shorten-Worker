@@ -1,7 +1,7 @@
 const repo_version = typeof(REPO_VERSION)!="undefined" ? REPO_VERSION
     : "@latest"
 const password_value = typeof(PASSWORD)!="undefined" ? PASSWORD
-    : "add"
+    : "password"
 //The domain name of the deployed website
 const url_exclude = typeof(URL_EXCLUDE)!="undefined" ? URL_EXCLUDE
     : "//iou.icu"
