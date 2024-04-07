@@ -1,3 +1,9 @@
+/*
+
+⚠️Notes! The code here is not up-to-date, see the NOTE!
+
+*/
+
 const repo_version = typeof(REPO_VERSION)!="undefined" ? REPO_VERSION
     : "@latest"
 const password_value = typeof(PASSWORD)!="undefined" ? PASSWORD
