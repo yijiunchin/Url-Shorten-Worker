@@ -146,7 +146,7 @@ async function handleRequest(request) {
       }
 
       if (req_password != password_value) {
-        return new Response(`{"status":500,"key": "", "error":"Error: Servers occupied by cats. We're herding them out! 🐱"}`, {
+        return new Response(`{"status":500,"key": "", "error":"Invalid password."}`, {
           headers: response_header,
         })
       }
@@ -182,7 +182,7 @@ async function handleRequest(request) {
           headers: response_header,
         })
       }else{
-        return new Response(`{"status":500, "key": "", "error":"Error: Reach the KV write limitation."}`, {
+        return new Response(`{"status":500, "key": "", "error":"Error: Error: Servers occupied by cats. We're herding them out! 🐱"}`, {
           headers: response_header,
         })
       }
@@ -191,7 +191,7 @@ async function handleRequest(request) {
       let req_password=req["password"]
 
       if (req_password != password_value) {
-        return new Response(`{"status":500,"key": "", "error":"Error: Server error."}`, {
+        return new Response(`{"status":500,"key": "", "error":"Error: Invalid password."}`, {
           headers: response_header,
         })
       }
@@ -214,7 +214,7 @@ async function handleRequest(request) {
 
   console.log(path)
   if(!path){
-    let index_e= await fetch("https://cdn.jsdelivr.net/gh/smilonely/Url-Shorten-Worker"+repo_version+"/"+error+"/index.html")
+    let index_e= await fetch("https://cdn.jsdelivr.net/gh/Monopink/Url-Shorten-Worker"+repo_version+"/"+error+"/index.html")
     index_e=await index_e.text()
     index_e=index_e.replaceAll(/__REPO_VERSION__/gm, repo_version)
     return new Response(index_e, {
@@ -226,7 +226,7 @@ async function handleRequest(request) {
   
   // 如果path符合password 显示应用界面
   if (path==password_value){  
-    let index= await fetch("https://cdn.jsdelivr.net/gh/smilonely/Url-Shorten-Worker"+repo_version+"/"+theme+"/index.html")
+    let index= await fetch("https://cdn.jsdelivr.net/gh/Monopink/Url-Shorten-Worker"+repo_version+"/"+theme+"/index.html")
     index=await index.text()
     index=index.replaceAll(/__REPO_VERSION__/gm, repo_version)
     index=index.replaceAll(/__PASSWORD__/gm, password_value)
@@ -249,7 +249,7 @@ async function handleRequest(request) {
   
   if (location) {
     if (no_ref=="on"){
-      let no_ref= await fetch("https://smilonely.github.io/Url-Shorten-Worker/no-ref.html")
+      let no_ref= await fetch("https://Monopink.github.io/Url-Shorten-Worker/no-ref.html")
       no_ref=await no_ref.text()
       no_ref=no_ref.replace(/{Replace}/gm, location)
       return new Response(no_ref, {
