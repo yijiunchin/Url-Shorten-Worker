@@ -182,11 +182,8 @@ function deleteShortUrl(delKeyPhrase) {
 }
 
 function loadKV() {
-  //清空本地存储
-  clearLocalStorage(); 
-
   // 从KV中查询, cmd为 "qryall", 查询全部
-  fetch(apiSrv, {
+  fetch(window.location.pathname, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ cmd: "qryall", password: passwordText })
@@ -196,7 +193,8 @@ function loadKV() {
     res = myJson;
     // 成功查询 Succeed
     if (res.status == "200") {
-
+      // 清空本地存储
+      clearLocalStorage(); 
       // 遍历kvlist
       res.kvlist.forEach(item => {      
         keyPhrase = item.key;
