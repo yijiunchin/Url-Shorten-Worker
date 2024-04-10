@@ -178,6 +178,42 @@ function deleteShortUrl(delKeyPhrase) {
     })
 }
 
+function loadKV() {
+  //清空本地存储
+  clearLocalStorage(); 
+
+  // 从KV中查询, cmd为 "qryall", 查询全部
+  fetch(apiSrv, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cmd: "qryall", password: password_value })
+  }).then(function (response) {    
+    return response.json();
+  }).then(function (myJson) {
+    res = myJson;
+    // 成功查询 Succeed
+    if (res.status == "200") {
+
+      // 遍历kvlist
+      res.kvlist.forEach(item => {      
+        keyPhrase = item.key;
+        valueLongURL = item.value;
+        // save to localStorage
+        localStorage.setItem(keyPhrase, valueLongURL);  
+      });
+
+    } else {
+      document.getElementById("result").innerHTML = res.error;
+      // 弹出消息窗口 Popup the result
+      var modal = new bootstrap.Modal(document.getElementById('resultModal'));
+      modal.show();
+    }
+  }).catch(function (err) {
+    alert("Unknow error. Please retry!");
+    console.log(err);
+  })
+}
+
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
