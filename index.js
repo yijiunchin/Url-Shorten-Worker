@@ -33,15 +33,6 @@ const unique_link = typeof(UNIQUE_LINK)!="undefined" ? UNIQUE_LINK
 const custom_link = typeof(CUSTOM_LINK)!="undefined" ? CUSTOM_LINK
     : true
 
-const config = {
-no_ref: "off", //Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
-theme:"",
-error:"",
-cors: "on",//Allow Cross-origin resource sharing for API requests.
-unique_link:false,//If it is true, the same long url will be shorten into the same short url
-custom_link:true,//Allow users to customize the short url.
-}
-
 const html404 = `<!DOCTYPE html>
 <html>
 <body>
