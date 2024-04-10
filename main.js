@@ -11,13 +11,20 @@ function shorturl() {
   document.getElementById("addBtn").disabled = true;
   document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Please wait...';
   fetch(window.location.pathname, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cmd: "add", url: document.querySelector("#longURL").value, keyPhrase: document.querySelector("#keyPhrase").value, password: passwordText })
-  }).then(function (response) {
-    return response.json();
-  })
-    .then(function (myJson) {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        cmd: "add",
+        url: document.querySelector("#longURL").value,
+        keyPhrase: document.querySelector("#keyPhrase").value,
+        password: passwordText
+      })
+    }).then(function(response) {
+      return response.json();
+    })
+    .then(function(myJson) {
       res = myJson;
       document.getElementById("addBtn").disabled = false;
       document.getElementById("addBtn").innerHTML = 'Shorten it';
@@ -38,13 +45,14 @@ function shorturl() {
 
       $('#resultModal').modal('show')
 
-    }).catch(function (err) {
+    }).catch(function(err) {
       alert("Unknow error. Please retry!");
       console.log(err);
       document.getElementById("addBtn").disabled = false;
       document.getElementById("addBtn").innerHTML = 'Shorten it';
     })
 }
+
 function copyurl(id, attr) {
   let target = null;
 
@@ -154,7 +162,7 @@ function addUrlToList(shortUrl, longUrl) {
   btn.classList.add("btn", "btn-outline-danger", "btn-sm")
   btn.setAttribute('onclick', 'deleteShortUrl(\"' + shortUrl + '\")')
   btn.setAttribute('id', 'delBtn-' + shortUrl)
-  btn.innerText = "✕"
+  btn.innerText = "✘"
   col_b.appendChild(btn)
 
   let row = document.createElement('div')
@@ -183,13 +191,19 @@ function deleteShortUrl(delKeyPhrase) {
 
   // 从KV中删除
   fetch(window.location.pathname, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cmd: "del", keyPhrase: delKeyPhrase, password: passwordText })
-  }).then(function (response) {
-    return response.json();
-  })
-    .then(function (myJson) {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        cmd: "del",
+        keyPhrase: delKeyPhrase,
+        password: passwordText
+      })
+    }).then(function(response) {
+      return response.json();
+    })
+    .then(function(myJson) {
       res = myJson;
 
       // 成功删除
@@ -207,7 +221,7 @@ function deleteShortUrl(delKeyPhrase) {
 
       $('#resultModal').modal('show')
 
-    }).catch(function (err) {
+    }).catch(function(err) {
       alert("Unknow error. Please retry!");
       console.log(err);
     })
@@ -217,22 +231,27 @@ function loadKV() {
   // 从KV中查询, cmd为 "qryall", 查询全部
   fetch(window.location.pathname, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cmd: "qryall", password: passwordText })
-  }).then(function (response) {    
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      cmd: "qryall",
+      password: passwordText
+    })
+  }).then(function(response) {
     return response.json();
-  }).then(function (myJson) {
+  }).then(function(myJson) {
     res = myJson;
     // 成功查询 Succeed
     if (res.status == "200") {
       // 清空本地存储
       localStorage.clear();
       // 遍历kvlist
-      res.kvlist.forEach(item => {      
+      res.kvlist.forEach(item => {
         keyPhrase = item.key;
         valueLongURL = item.value;
         // save to localStorage
-        localStorage.setItem(keyPhrase, valueLongURL); 
+        localStorage.setItem(keyPhrase, valueLongURL);
       });
       alert("Record downloaded.");
       location.reload();
@@ -242,13 +261,13 @@ function loadKV() {
       var modal = new bootstrap.Modal(document.getElementById('resultModal'));
       modal.show();
     }
-  }).catch(function (err) {
+  }).catch(function(err) {
     alert("Unknow error. Please retry!");
     console.log(err);
   })
 }
 
-$(function () {
+$(function() {
   $('[data-toggle="popover"]').popover()
 })
 
