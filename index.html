@@ -83,10 +83,19 @@
       </div>
 
       <hr class="my-4">
+      
+      <div class="d-flex justify-content-between align-items-end">
+        <div>
+          <label class="form-check-label" for="credit">Record(s)</label>
+        </div>
+        <div>
+          <button class="btn btn-outline-primary btn-sm mr-2" type="button" onclick="loadKV()" id="loadKV2localStgBtn">Download records</button>
+          <button class="btn btn-outline-primary btn-sm mr-2" type="button" onclick="reloadUrlList()" id="loadListBtn">Load records</button>
+          <button class="btn btn-outline-danger btn-sm" type="button" onclick="clearLocalStorage()" id="clearlocalStgBtn">Clear records</button>
+        </div>
+      </div>
 
       <div id="record"> 
-
-        <label class="form-check-label" for="credit">Record(s)</label>
 
         <div class="list-group mb-3" id="urlList">
           <div class="list-group-item">
@@ -112,11 +121,9 @@
           </div>
         </div>
       </div>
-        <div class="d-grid gap-2 mb-5 d-md-flex justify-content-md-end">
-          <button class="btn btn-primary mr-2" type="button" onclick="loadKV()" id="loadKV2localStgBtn">Download records</button>
-          <button class="btn btn-primary mr-2" type="button" onclick="reloadUrlList()" id="loadListBtn">Load records</button>
-          <button class="btn btn-danger " type="button" onclick="clearLocalStorage()" id="clearlocalStgBtn">Clear records</button>
-        </div>
+
+      <hr class="my-4">
+
     </div>
 
     <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
