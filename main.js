@@ -80,6 +80,7 @@ function copyurl(id, attr) {
     target.parentElement.removeChild(target);
   }
 }
+
 function loadUrlList() {
   // 清空列表
   let urlList = document.querySelector("#urlList")
@@ -89,11 +90,11 @@ function loadUrlList() {
 
   // 文本框中的长链接
   let longUrl = document.querySelector("#longURL").value
-  console.log(longUrl)
+  //console.log(longUrl)
 
   // 遍历localStorage
   let len = localStorage.length
-  console.log(+len)
+  //console.log(+len)
   for (; len > 0; len--) {
     let keyShortURL = localStorage.key(len - 1)
     let valueLongURL = localStorage.getItem(keyShortURL)
@@ -104,6 +105,35 @@ function loadUrlList() {
       addUrlToList(keyShortURL, valueLongURL)
     }
   }
+}
+
+// button event
+function reLoadUrlList() {
+  // 清空列表
+  let urlList = document.querySelector("#urlList")
+  while (urlList.firstChild) {
+    urlList.removeChild(urlList.firstChild)
+  }
+
+  // 文本框中的长链接
+  let longUrl = document.querySelector("#longURL").value
+  //console.log(longUrl)
+
+  // 遍历localStorage
+  let len = localStorage.length
+  //console.log(+len)
+  for (; len > 0; len--) {
+    let keyShortURL = localStorage.key(len - 1)
+    let valueLongURL = localStorage.getItem(keyShortURL)
+
+    // 如果长链接为空，加载所有的localStorage
+    // 如果长链接不为空，加载匹配的localStorage
+    if (longUrl == "" || (longUrl == valueLongURL)) {
+      addUrlToList(keyShortURL, valueLongURL)
+    }
+  }
+  alert("Record loaded.");
+  location.reload();
 }
 
 function addUrlToList(shortUrl, longUrl) {
@@ -140,11 +170,13 @@ function addUrlToList(shortUrl, longUrl) {
   urlList.append(child)
 }
 
+// button event
 function clearLocalStorage() {
   localStorage.clear()
   alert("Record deleted.");
 }
 
+// button event
 function deleteShortUrl(delKeyPhrase) {
   // 按钮
   document.getElementById("delBtn-" + delKeyPhrase).disabled = true;
@@ -195,17 +227,14 @@ function loadKV() {
     // 成功查询 Succeed
     if (res.status == "200") {
       // 清空本地存储
-      clearLocalStorage(); 
+      localStorage.clear();
       // 遍历kvlist
       res.kvlist.forEach(item => {      
         keyPhrase = item.key;
         valueLongURL = item.value;
         // save to localStorage
         localStorage.setItem(keyPhrase, valueLongURL); 
-        alert("Record downloaded.");
-        location.reload();
       });
-
     } else {
       document.getElementById("result").innerHTML = res.error;
       // 弹出消息窗口 Popup the result
@@ -216,6 +245,8 @@ function loadKV() {
     alert("Unknow error. Please retry!");
     console.log(err);
   })
+  alert("Record downloaded.");
+  location.reload();
 }
 
 $(function () {
