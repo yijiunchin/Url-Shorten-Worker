@@ -104,8 +104,6 @@ function loadUrlList() {
       addUrlToList(keyShortURL, valueLongURL)
     }
   }
-  alert("Record loaded.");
-  location.reload();
 }
 
 function addUrlToList(shortUrl, longUrl) {
