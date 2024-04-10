@@ -234,6 +234,8 @@ function loadKV() {
         // save to localStorage
         localStorage.setItem(keyPhrase, valueLongURL); 
       });
+      alert("Record downloaded.");
+      location.reload();
     } else {
       document.getElementById("result").innerHTML = res.error;
       // 弹出消息窗口 Popup the result
@@ -244,8 +246,6 @@ function loadKV() {
     alert("Unknow error. Please retry!");
     console.log(err);
   })
-  alert("Record downloaded.");
-  location.reload();
 }
 
 $(function () {
