@@ -104,6 +104,8 @@ function loadUrlList() {
       addUrlToList(keyShortURL, valueLongURL)
     }
   }
+  alert("Record loaded.");
+  location.reload();
 }
 
 function addUrlToList(shortUrl, longUrl) {
@@ -142,6 +144,7 @@ function addUrlToList(shortUrl, longUrl) {
 
 function clearLocalStorage() {
   localStorage.clear()
+  alert("Record deleted.");
 }
 
 function deleteShortUrl(delKeyPhrase) {
@@ -200,7 +203,9 @@ function loadKV() {
         keyPhrase = item.key;
         valueLongURL = item.value;
         // save to localStorage
-        localStorage.setItem(keyPhrase, valueLongURL);  
+        localStorage.setItem(keyPhrase, valueLongURL); 
+        alert("Record downloaded.");
+        location.reload();
       });
 
     } else {
