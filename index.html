@@ -83,10 +83,10 @@
       </div>
 
       <hr class="my-4">
-      
-      <label class="form-check-label" for="credit">Record(s)</label>
 
       <div id="record"> 
+
+        <label class="form-check-label" for="credit">Record(s)</label>
 
         <div class="list-group mb-3" id="urlList">
           <div class="list-group-item">
@@ -94,8 +94,8 @@
               <div class="col">
                 <span>https://iou.icu/</span>
               </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-danger btn-sm" onclick='deleteShortUrl("4rEbzm")'>Romeve</button>
+              <div class="col-auto align-self-start">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick='deleteShortUrl("4rEbzm")'>✕</button>
               </div>
             </div>
           </div>
@@ -105,14 +105,13 @@
               <div class="col">
                 <span>I owe you for the cold mornings. Short sleeves and goose-bumps and a warm arm wrapped tightly around my shoulders.I owe you for the cold mornings. Short sleeves and goose-bumps and a warm arm wrapped tightly around my shoulders.</span>
               </div>
-              <div class="col-auto">
-                <button type="button" class="btn btn-danger btn-sm" onclick='deleteShortUrl("8NKY34")'>Romeve</button>
+              <div class="col-auto align-self-start">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick='deleteShortUrl("8NKY34")'>✕</button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <hr class="my-4">
       <div class="d-grid gap-2 mb-5 d-md-flex justify-content-md-end">
         <button class="btn btn-outline-primary btn-sm mr-2" type="button" onclick="loadKV()" id="loadKV2localStgBtn">Download records</button>
         <button class="btn btn-outline-primary btn-sm mr-2" type="button" onclick="loadUrlList()" id="loadListBtn">Load records</button>

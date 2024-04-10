@@ -148,13 +148,13 @@ function addUrlToList(shortUrl, longUrl) {
   col_a.appendChild(text)
 
   let col_b = document.createElement('div')
-  col_b.classList.add("col-auto")
+  col_b.classList.add("col-auto", "align-self-start")
   let btn = document.createElement('button')
   btn.setAttribute('type', 'button')
-  btn.classList.add("btn", "btn-danger", "btn-sm")
+  btn.classList.add("btn", "btn-outline-danger", "btn-sm")
   btn.setAttribute('onclick', 'deleteShortUrl(\"' + shortUrl + '\")')
   btn.setAttribute('id', 'delBtn-' + shortUrl)
-  btn.innerText = "Remove"
+  btn.innerText = "✕"
   col_b.appendChild(btn)
 
   let row = document.createElement('div')
