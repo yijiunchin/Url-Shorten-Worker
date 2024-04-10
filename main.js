@@ -1,4 +1,7 @@
 let res
+
+let passwordText = document.querySelector("#passwordText").value
+
 function shorturl() {
   if (document.querySelector("#longURL").value == "") {
     alert("Url cannot be empty!")
@@ -10,7 +13,7 @@ function shorturl() {
   fetch(window.location.pathname, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cmd: "add", url: document.querySelector("#longURL").value, keyPhrase: document.querySelector("#keyPhrase").value, password: document.querySelector("#passwordText").value })
+    body: JSON.stringify({ cmd: "add", url: document.querySelector("#longURL").value, keyPhrase: document.querySelector("#keyPhrase").value, password: passwordText })
   }).then(function (response) {
     return response.json();
   })
@@ -150,7 +153,7 @@ function deleteShortUrl(delKeyPhrase) {
   fetch(window.location.pathname, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cmd: "del", keyPhrase: delKeyPhrase, password: document.querySelector("#passwordText").value })
+    body: JSON.stringify({ cmd: "del", keyPhrase: delKeyPhrase, password: passwordText })
   }).then(function (response) {
     return response.json();
   })
@@ -186,7 +189,7 @@ function loadKV() {
   fetch(apiSrv, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ cmd: "qryall", password: password_value })
+    body: JSON.stringify({ cmd: "qryall", password: passwordText })
   }).then(function (response) {    
     return response.json();
   }).then(function (myJson) {
