@@ -244,6 +244,7 @@ function loadKV() {
     alert("Unknow error. Please retry!");
     console.log(err);
   })
+  loadUrlList()
   alert("Record downloaded.");
 }
 
