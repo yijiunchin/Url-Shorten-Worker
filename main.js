@@ -108,7 +108,7 @@ function loadUrlList() {
 }
 
 // button event
-function reLoadUrlList() {
+function reloadUrlList() {
   // 清空列表
   let urlList = document.querySelector("#urlList")
   while (urlList.firstChild) {
@@ -133,7 +133,6 @@ function reLoadUrlList() {
     }
   }
   alert("Record loaded.");
-  location.reload();
 }
 
 function addUrlToList(shortUrl, longUrl) {
@@ -246,7 +245,6 @@ function loadKV() {
     console.log(err);
   })
   alert("Record downloaded.");
-  location.reload();
 }
 
 $(function () {
