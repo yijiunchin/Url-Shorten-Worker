@@ -216,12 +216,16 @@ function deleteShortUrl(delKeyPhrase) {
 
         document.getElementById("result").innerHTML = "Delete Successful."
       } else {
+        document.getElementById("delBtn-").disabled = false;
+        document.getElementById("delBtn-").innerHTML = '✘';
         document.getElementById("result").innerHTML = res.error;
       }
 
       $('#resultModal').modal('show')
 
     }).catch(function(err) {
+      document.getElementById("delBtn-").disabled = false;
+      document.getElementById("delBtn-").innerHTML = '✘';
       alert("Unknow error. Please retry!");
       console.log(err);
     })
