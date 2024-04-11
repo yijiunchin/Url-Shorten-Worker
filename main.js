@@ -9,7 +9,7 @@ function shorturl() {
   }
 
   document.getElementById("addBtn").disabled = true;
-  document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Please wait...';
+  document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Shortening...';
   fetch(window.location.pathname, {
       method: 'POST',
       headers: {
@@ -229,7 +229,7 @@ function deleteShortUrl(delKeyPhrase) {
 
 function loadKV() {
   document.getElementById("loadKV2localStgBtn").disabled = true;
-  document.getElementById("loadKV2localStgBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+  document.getElementById("loadKV2localStgBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Downloading...';
   // 从KV中查询, cmd为 "qryall", 查询全部
   fetch(window.location.pathname, {
     method: 'POST',
