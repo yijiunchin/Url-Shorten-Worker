@@ -4,7 +4,7 @@ let passwordText = document.querySelector("#passwordText").value
 
 function shorturl() {
   if (document.querySelector("#longURL").value == "") {
-    alert("Url cannot be empty!")
+    alert("URL cannot be empty!")
     return
   }
 
