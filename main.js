@@ -259,8 +259,6 @@ function loadKV() {
         // save to localStorage
         localStorage.setItem(keyPhrase, valueLongURL);
       });
-      document.getElementById("loadKV2localStgBtn").disabled = false;
-      document.getElementById("loadKV2localStgBtn").innerHTML = 'Download records';
       alert("Record downloaded.");
       location.reload();
     } else {
@@ -272,7 +270,10 @@ function loadKV() {
   }).catch(function(err) {
     alert("Unknow error. Please retry!");
     console.log(err);
-  })
+  }).finally(function() {
+    document.getElementById("loadKV2localStgBtn").disabled = false;
+    document.getElementById("loadKV2localStgBtn").innerHTML = 'Download records';
+  });
 }
 
 $(function() {
