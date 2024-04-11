@@ -140,7 +140,7 @@ function reloadUrlList() {
       addUrlToList(keyShortURL, valueLongURL)
     }
   }
-  alert("Record loaded.");
+  document.getElementById("result").innerHTML = "Record loaded."
 }
 
 function addUrlToList(shortUrl, longUrl) {
@@ -180,7 +180,7 @@ function addUrlToList(shortUrl, longUrl) {
 // button event
 function clearLocalStorage() {
   localStorage.clear()
-  alert("Record deleted.");
+  document.getElementById("result").innerHTML = "Record deleted."
 }
 
 // button event
@@ -214,7 +214,7 @@ function deleteShortUrl(delKeyPhrase) {
         // 加载localStorage
         loadUrlList()
 
-        document.getElementById("result").innerHTML = "Delete Successful"
+        document.getElementById("result").innerHTML = "Delete Successful."
       } else {
         document.getElementById("result").innerHTML = res.error;
       }
@@ -228,6 +228,8 @@ function deleteShortUrl(delKeyPhrase) {
 }
 
 function loadKV() {
+  document.getElementById("addBtn").disabled = true;
+  document.getElementById("addBtn").innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
   // 从KV中查询, cmd为 "qryall", 查询全部
   fetch(window.location.pathname, {
     method: 'POST',
@@ -253,6 +255,8 @@ function loadKV() {
         // save to localStorage
         localStorage.setItem(keyPhrase, valueLongURL);
       });
+      document.getElementById("addBtn").disabled = false;
+      document.getElementById("addBtn").innerHTML = 'Download records';
       alert("Record downloaded.");
       location.reload();
     } else {
