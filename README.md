@@ -74,7 +74,7 @@ Go to Worker => Worker Name => Variables => Environment Variables to configure t
 | URL_EXCLUDE    | //url-shortner-demo.iou.icu | Exclude the host domain. Please modify it to your domain.    |
 | THEME_ADMIN    |                             | Admin user homepage path, e.g., `theme/admin`.               |
 | THEME          |                             | Guest user homepage.                                         |
-| LEN            |                             | Length of randomly generated short link path.                |
+| LEN            | 6                           | Length of randomly generated short link path.                |
 | NO_REF         | false                       | Control HTTP referrer header.                                |
 | CORS           | false                       | Allow API requests to provide cross-origin resource sharing. |
 | UNIQUE_LINK    | false                       | Generate the same short link for the same URL.               |
