@@ -80,11 +80,11 @@ Go to Worker => Worker Name => Variables => Environment Variables to configure t
 | UNIQUE_LINK    | false                       | Generate the same short link for the same URL.               |
 | CUSTOM_LINK    | true                        | Allow guest users to customize the short link.               |
 | LEN_LIMIT      | 3                           | Minimum length for guest user's custom short link.           |
-| REGEX_REDIRECT | false                       | Enable regular expression redirection functionality.         |
+| REGEX_REDIRECT | false                       | Enable regular expression redirect functionality.         |
 
-### Regular Expression Redirection
+### Regular Expression Redirect
 
-To enable regular expression redirection, set the environment variable `EGEX_REDIRECT` to `true`.
+To enable regular expression redirect, set the environment variable `EGEX_REDIRECT` to `true`.
 
 Regular expressions are stored in the KV `#regexRedirect` key in `json` format, like this:
 
