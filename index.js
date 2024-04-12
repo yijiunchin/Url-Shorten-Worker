@@ -293,7 +293,7 @@ async function handleRequest(request) {
   }
 
   // Guest user homepage.
-  if (!path || !password_value || path == password_value) {
+  if ((!path && !password_value) || path == password_value) {
     let index = await fetch("https://cdn.jsdelivr.net/gh/Monopink/Url-Shorten-Worker" + repo_version + "/" + theme + "/index.html")
     index = await index.text()
     index = index.replaceAll(/__REPO_VERSION__/gm, repo_version)
