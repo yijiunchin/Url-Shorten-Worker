@@ -280,4 +280,6 @@ $(function() {
   $('[data-toggle="popover"]').popover()
 })
 
+document.getElementById("basic-addon2").innerHTML = window.location.host;
+
 loadUrlList()
