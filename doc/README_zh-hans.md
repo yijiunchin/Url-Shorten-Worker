@@ -90,8 +90,24 @@ Dome 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
 
 ```
 Key = #regexRedirect
-Value = {"^(exsample.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
+Value = {"^(example.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
 ```
 在运行时会被转为字典，字典的键为正则表达式匹配规则，值为替换规则。
+
+这条记录代表着有两条正则规则：
+
+规则一:
+
+查找：`^(example.*)`
+替换:`https://www.iou.icu/$1`
+
+规则二：
+
+查找：`^(.*\.).*`
+替换:`https://$1.iou.icu/`
+
+传入的短链接会依次匹配，应用第一个匹配的规则。
+
+例如传入短链接 `https://example.com/example-apple`，重定向结果为 `https://www.iou.icu/example-apple` 。
 
 正则表达式优先于短链接，请确保 `json` 格式正确并做好转义。
