@@ -97,15 +97,17 @@ At running, it will be converted into a dictionary, where the keys are the regul
 
 This value contain two regex rules.
 
-Rule A:
-
-Find: `^(example.*)`
-Replace: `https://www.iou.icu/$1`
-
-Rule B:
-
-Find: `^(.*\.).*`
-Replace: `https://$1.iou.icu/`
+>Rule A:
+>
+>Find: `^(example.*)`
+>
+>Replace: `https://www.iou.icu/$1`
+>
+>Rule B:
+>
+>Find: `^(.*\.).*`
+>
+>Replace: `https://$1.iou.icu/`
 
 The passed short link will be matched sequentially and the first matched rule will be applied.
 
