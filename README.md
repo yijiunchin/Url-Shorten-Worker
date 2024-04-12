@@ -25,7 +25,7 @@ Features in this branch include:
 
 Demo: [url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
 
-Note: The demo is for trial purposes only, and it has additional  restriction rules and will periodically delete records. Please deploy it on your own for actual usage.
+Note: The demo is for trial purposes only, and it has additional restriction rules and will periodically delete records. Please deploy it on your own for actual usage.
 
 ### API
 
@@ -90,9 +90,25 @@ Regular expressions are stored in the KV `#regexRedirect` key in `json` format, 
 
 ```
 Key = #regexRedirect
-Value = {"^(exsample.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
+Value = {"^(example.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
 ```
 
-At runtime, it will be converted into a dictionary, where the keys  are the regular expression matching rules, and the values are the  replacement rules.
+At running, it will be converted into a dictionary, where the keys are the regular expression matching rules, and the values are the replacement rules.
+
+This value contain two regex rules.
+
+Rule A:
+
+Find: `^(example.*)`
+Replace: `https://www.iou.icu/$1`
+
+Rule B:
+
+Find: `^(.*\.).*`
+Replace: `https://$1.iou.icu/`
+
+The passed short link will be matched sequentially and the first matched rule will be applied.
+
+For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://www.iou.icu/example-apple`.
 
 Regular expressions take precedence over short links, so make sure the `json` format is correct and properly escaped.
