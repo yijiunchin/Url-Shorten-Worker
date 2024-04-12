@@ -65,7 +65,7 @@ Go to Worker => Worker Name => Variables => Environment Variables to configure t
 
 | Variable Name  | Value (Default)             | Description                                                  |
 | -------------- | --------------------------- | ------------------------------------------------------------ |
-| REPO_VERSION   | @gh-pages                   | Front-end page repository version. If using the Jsdelivr CDN address, it may need to be changed to the Release tag for the latest version. |
+| REPO_VERSION   | @gh-pages                   | Homepage repository version. If using the Jsdelivr CDN address, it may need to be changed to the Release tag for the latest version. |
 | PASSWORD_ADMIN | admin                       | Admin user password (access path). An empty value means no admin user. |
 | PASSWORD       |                             | Guest user password (access path). An empty value means that user will go to the homepage. |
 | INDEX_REDIRECT |                             | URL to redirect to when the guest user password has a value. |
