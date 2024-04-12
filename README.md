@@ -1,4 +1,4 @@
-# Url-Shorten-Worker
+# URL Shortener
 
 English | [简体中文](doc/README_zh-hans.md)
 
@@ -90,27 +90,29 @@ Regular expressions are stored in the KV `#regexRedirect` key in `json` format, 
 
 ```
 Key = #regexRedirect
-Value = {"^(example.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
+Value = {"^(example.*)": "https://www.iou.icu/$1","^gg\\.(.*)":"https://www.google.com/search?q=$1"}
 ```
 
 At running, it will be converted into a dictionary, where the keys are the regular expression matching rules, and the values are the replacement rules.
 
 This value contain two regex rules.
 
->Rule A:
+>**Rule A**
 >
 >Find: `^(example.*)`
 >
->Replace: `https://www.iou.icu/$1`
+>Replace: `https://iou.icu/$1`
+
+>**Rule B**
 >
->Rule B:
+>Find: `^gg\.(.*)`
 >
->Find: `^(.*\.).*`
->
->Replace: `https://$1.iou.icu/`
+>Replace: `https://www.google.com/search?q=$1`
 
 The passed short link will be matched sequentially and the first matched rule will be applied.
 
-For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://www.iou.icu/example-apple`.
+For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://iou.icu/example-apple`. 
+
+If the `https://example.com/gg.apple` , will be ``https://www.google.com/search?q=apple``. And you will get a quick search.
 
 Regular expressions take precedence over short links, so make sure the `json` format is correct and properly escaped.

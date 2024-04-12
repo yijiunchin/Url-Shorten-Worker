@@ -1,4 +1,4 @@
-# Url-Shorten-Worker
+# URL Shortener
 
 [English](../README.md) | 简体中文
 
@@ -23,9 +23,9 @@
 
 ### 网页使用
 
-Dome 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
+Demo 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
 
-注意：Dome 仅供试用，有额外的限制规则并且会定时删除记录。请自行部署来使用。
+注意：Demo 仅供试用，有额外的限制规则并且会定时删除记录。请自行部署来使用。
 
 ### API
 
@@ -90,26 +90,28 @@ Dome 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
 
 ```
 Key = #regexRedirect
-Value = {"^(example.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
+Value = {"^(example.*)": "https://www.iou.icu/$1","^gg\\.(.*)":"https://www.google.com/search?q=$1"}
 ```
 在运行时会被转为字典，字典的键为正则表达式匹配规则，值为替换规则。
 
 这条记录代表着有两条正则规则：
 
->规则一：
+>**规则一**
 >
 >查找：`^(example.*)`
 >
 >替换：`https://www.iou.icu/$1`
+
+>**规则二**
 >
->规则二：
+>查找：`^gg\.(.*)`
 >
->查找：`^(.*\.).*`
->
->替换：`https://$1.iou.icu/`
+>替换：`https://www.google.com/search?q=$1`
 
 传入的短链接会依次匹配，应用第一个匹配的规则。
 
 例如传入短链接 `https://example.com/example-apple`，重定向结果为 `https://www.iou.icu/example-apple` 。
+
+如果是 `https://example.com/gg.apple` ，将跳转 ``https://www.google.com/search?q=apple``。你会得到一个快捷搜索。
 
 正则表达式优先于短链接，请确保 `json` 格式正确并做好转义。
