@@ -1,40 +1,96 @@
 # Url-Shorten-Worker
-A URL Shortener created using Cloudflare Worker
 
-# API
+English | [简体中文](doc/README_zh-hans.md)
 
-[API Documentation (API文档)](API.md)
+This is a link shortener deployed on Cloudflare Worker, allowing easy deployment without the need for a server and enabling custom domain  binding.
 
-# Getting start
-### 去Workers KV中创建一个命名空间
+Features in this branch include:
 
-Go to Workers KV and create a namespace.
+- Support for configuring parameters using Cloudflare Worker environment variables.
+- Support for hierarchical permissions with the ability to set admin and guest user passwords (access paths) and restrict permissions for guest user.
+- Support for different homepages for unauthorized users, guest users, and admin users.
+- Support for configuring regular expression rules.
+- Ability to cache and manage generated records on the web page. @crazypeace
+- Ability to download all generated records and cache them locally. @crazypeace
+- PWA feature support.
+- Also includes improvements in other aspects.
+
+*Some features are merged from the branch of [@crazypeace](https://github.com/crazypeace/Url-Shorten-Worker).
+
+## Usage
+
+### Web Usage
+
+Demo: [url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
+
+Note: The demo is for trial purposes only, and it has additional  restriction rules and will periodically delete records. Please deploy it on your own for actual usage.
+
+### API
+
+[API Documentation](doc/API.md)
+
+## Deployment
+
+Deploy through Cloudflare. If your domain is hosted on Cloudflare, you can bind it to your domain.
+
+### Create KV
+
+Create a KV Namespace.
 
 <img src="https://cdn.jsdelivr.net/npm/imst@0.0.4/20201205232805.png">
 
-### 去Worker的Settings选选项卡中绑定KV Namespace
+### Deploy Worker
 
-Bind an instance of a KV Namespace to access its data in a Worker.
+Create a Worker.
+
+Go to Worker => Worker Name => Variables => KV Namespace Bindings.
 
 <img src="https://cdn.jsdelivr.net/npm/imst@0.0.4/20201205232536.png">
 
-### 其中Variable name填写`LINKS`, KV namespace填写你刚刚创建的命名空间
-
-Where Variable name should set as `LINKS` and KV namespace is the namespace you just created in the first step.
+In the Variable name field, enter `LINKS`, and in the KV namespace field, enter the namespace you just created.
 
 <img src="https://cdn.jsdelivr.net/npm/imst@0.0.4/20201205232704.png">
 
-### 复制本项目中的`index.js`的代码到Cloudflare Worker 
+Click on `Edit Code` and copy the code from the `index.js` file in this project to Cloudflare Worker.
 
-Copy the `index.js` code from this project to Cloudflare Worker. 
+Click Deploy.
 
-### 点击Save and Deploy
+### Domain binding
 
-Click Save and Deploy
+Go to Worker => Worker Name => Triggers => Routes to bind your own domain for access.
 
-# Demo
-https://lnks.tools/
- 
-Note: Because someone abuse this demo website, all the generated link will automatically expired after 24 hours. For long-term use, please deploy your own.
+### Environment Variables
 
-注意：所有由Demo网站生成的链接24小时后会自动失效，如需长期使用请自行搭建。
+Go to Worker => Worker Name => Variables => Environment Variables to configure the environment variables.
+
+| Variable Name  | Value (Default)             | Description                                                  |
+| -------------- | --------------------------- | ------------------------------------------------------------ |
+| REPO_VERSION   | @gh-pages                   | Front-end page repository version. If using the Jsdelivr CDN address, it may need to be changed to the Release tag for the latest version. |
+| PASSWORD_ADMIN | admin                       | Admin user password (access path). An empty value means no admin user. |
+| PASSWORD       |                             | Guest user password (access path). An empty value means that user will go to the homepage. |
+| INDEX_REDIRECT |                             | URL to redirect to when the guest user password has a value. |
+| URL_EXCLUDE    | //url-shortner-demo.iou.icu | Exclude the host domain. Please modify it to your domain.    |
+| THEME_ADMIN    |                             | Admin user homepage path, e.g., `theme/admin`.               |
+| THEME          |                             | Guest user homepage.                                         |
+| LEN            |                             | Length of randomly generated short link path.                |
+| NO_REF         | false                       | Control HTTP referrer header.                                |
+| CORS           | false                       | Allow API requests to provide cross-origin resource sharing. |
+| UNIQUE_LINK    | false                       | Generate the same short link for the same URL.               |
+| CUSTOM_LINK    | true                        | Allow guest users to customize the short link.               |
+| LEN_LIMIT      | 3                           | Minimum length for guest user's custom short link.           |
+| REGEX_REDIRECT | false                       | Enable regular expression redirection functionality.         |
+
+### Regular Expression Redirection
+
+To enable regular expression redirection, set the environment variable `EGEX_REDIRECT` to `true`.
+
+Regular expressions are stored in the KV `#regexRedirect` key in `json` format, like this:
+
+```
+Key = #regexRedirect
+Value = {"^(exsample.*)": "https://www.iou.icu/$1","^(.*\\.).*":"https://$1.iou.icu/"}
+```
+
+At runtime, it will be converted into a dictionary, where the keys  are the regular expression matching rules, and the values are the  replacement rules.
+
+Regular expressions take precedence over short links, so make sure the `json` format is correct and properly escaped.
