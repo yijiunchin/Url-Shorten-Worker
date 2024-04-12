@@ -2,6 +2,8 @@
 
 [English](../README.md) | 简体中文
 
+![Demo](Demo.png)
+
 这是一个基于 CloudFlare Worker 部署的链接缩短器，无需服务器轻松部署，可绑定自定义域名。
 
 本分支功能特性：
