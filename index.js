@@ -303,6 +303,13 @@ async function handleRequest(request) {
         "content-type": "text/html;charset=UTF-8",
       },
     })
+  } else if (!path) {
+    return new Response(html404, {
+      headers: {
+        "content-type": "text/html;charset=UTF-8",
+      },
+      status: 404
+    })
   }
 
   let location;
