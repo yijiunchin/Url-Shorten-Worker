@@ -162,7 +162,7 @@ async function handleRequest(request) {
           })
         }
         // req_keyPhrase containing symbol.
-        if (!/^[a-zA-Z0-9]+$/.test(req_keyPhrase)) {
+        if (req_keyPhrase && !/^[a-zA-Z0-9]+$/.test(req_keyPhrase)) {
           return new Response(`{"status":500,"key": "", "error":"Error: Custom short URL illegal."}`, {
             headers: response_header,
           })

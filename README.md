@@ -113,6 +113,6 @@ The passed short link will be matched sequentially and the first matched rule wi
 
 For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://iou.icu/example-apple`. 
 
-If the `https://example.com/gg.apple` , will be ``https://www.google.com/search?q=apple``. And you will get a quick search.
+If the `https://example.com/gg.apple` , will be ``https://www.google.com/search?q=apple``. And you will get a quick search.
 
-Regular expressions take precedence over short links, so make sure the `json` format is correct and properly escaped.
+Regex rules have higher priority than short links, so make sure the `json` format is correct and properly escaped.
