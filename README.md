@@ -23,7 +23,7 @@ Features in this branch include:
 
 ### Web Usage
 
-Demo: [url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
+Demo: [url-shortener-demo.jhw.li](https://url-shortener-demo.jhw.li/)
 
 Note: The demo is for trial purposes only, and it has additional restriction rules and will periodically delete records. Please deploy it on your own for actual usage.
 
@@ -71,7 +71,7 @@ Go to Worker => Worker Name => Variables => Environment Variables to configure t
 | PASSWORD_ADMIN | admin                       | Admin user password (access path). An empty value means no admin user. |
 | PASSWORD       |                             | Guest user password (access path). An empty value means that user will go to the homepage. |
 | INDEX_REDIRECT |                             | URL to redirect to when the guest user password has a value. |
-| URL_EXCLUDE    | //url-shortner-demo.iou.icu | Exclude the host domain. Please modify it to your domain.    |
+| URL_EXCLUDE    | //url-shortener-demo.jhw.li | Exclude the host domain. Please modify it to your domain.    |
 | THEME_ADMIN    |                             | Admin user homepage path, e.g., `theme/admin`.               |
 | THEME          |                             | Guest user homepage.                                         |
 | LEN            | 6                           | Length of randomly generated short link path.                |
@@ -90,7 +90,7 @@ Regular expressions are stored in the KV `#regexRedirect` key in `json` format, 
 
 ```
 Key = #regexRedirect
-Value = {"^(example.*)": "https://www.iou.icu/$1","^gg\\.(.*)":"https://www.google.com/search?q=$1"}
+Value = {"^(example.*)": "https://www.jhw.li/$1","^gg\\.(.*)":"https://www.google.com/search?q=$1"}
 ```
 
 At running, it will be converted into a dictionary, where the keys are the regular expression matching rules, and the values are the replacement rules.
@@ -101,7 +101,7 @@ This value contain two regex rules.
 >
 >Find: `^(example.*)`
 >
->Replace: `https://iou.icu/$1`
+>Replace: `https://jhw.li/$1`
 
 >**Rule B**
 >
@@ -111,7 +111,7 @@ This value contain two regex rules.
 
 The passed short link will be matched sequentially and the first matched rule will be applied.
 
-For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://iou.icu/example-apple`. 
+For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://jhw.li/example-apple`. 
 
 If the `https://example.com/gg.apple` , will be ``https://www.google.com/search?q=apple``. And you will get a quick search.
 

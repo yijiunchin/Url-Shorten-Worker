@@ -11,7 +11,7 @@ const index_redirect = typeof(INDEX_REDIRECT) != "undefined" ? INDEX_REDIRECT :
   ""
 // The URL of the deployed website.
 const url_exclude = typeof(URL_EXCLUDE) != "undefined" ? URL_EXCLUDE :
-  "//url-shortner-demo.iou.icu"
+  "//url-shortener-demo.jhw.li"
 // Homepage path for admin user, use the empty value for default theme.
 const theme_admin = typeof(THEME_ADMIN) != "undefined" ? THEME_ADMIN :
   ""

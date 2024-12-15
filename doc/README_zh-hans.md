@@ -23,7 +23,7 @@
 
 ### 网页使用
 
-Demo 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
+Demo 地址：[url-shortener-demo.jhw.li](https://url-shortener-demo.jhw.li/)
 
 注意：Demo 仅供试用，有额外的限制规则并且会定时删除记录。请自行部署来使用。
 
@@ -71,7 +71,7 @@ Demo 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
 | PASSWORD_ADMIN | admin                     | 管理员用户密码（访问路径），值为空表示无管理员用户           |
 | PASSWORD       |                           | 访客用户密码（访问路径），值为空表示主页                     |
 | INDEX_REDIRECT |                           | 访客用户密码值不为空时，主页跳转的 URL                       |
-| URL_EXCLUDE    | //url-shortner-demo.iou.icu | 排除本机域名，请修改为你的域名                               |
+| URL_EXCLUDE    | //url-shortener-demo.jhw.li | 排除本机域名，请修改为你的域名                               |
 | THEME_ADMIN    |                           | 管理员用户主页路径，如：`theme/admin`                        |
 | THEME          |                           | 访客用户主页                                                 |
 | LEN            | 6                          | 随机生成的短链路径长度                                       |
@@ -90,7 +90,7 @@ Demo 地址：[url-shortner-demo.iou.icu](https://url-shortner-demo.iou.icu/)
 
 ```
 Key = #regexRedirect
-Value = {"^(example.*)": "https://www.iou.icu/$1","^gg\\.(.*)":"https://www.google.com/search?q=$1"}
+Value = {"^(example.*)": "https://www.jhw.li/$1","^gg\\.(.*)":"https://www.google.com/search?q=$1"}
 ```
 在运行时会被转为字典，字典的键为正则表达式匹配规则，值为替换规则。
 
@@ -100,7 +100,7 @@ Value = {"^(example.*)": "https://www.iou.icu/$1","^gg\\.(.*)":"https://www.goog
 >
 >查找：`^(example.*)`
 >
->替换：`https://www.iou.icu/$1`
+>替换：`https://www.jhw.li/$1`
 
 >**规则二**
 >
@@ -110,7 +110,7 @@ Value = {"^(example.*)": "https://www.iou.icu/$1","^gg\\.(.*)":"https://www.goog
 
 传入的短链接会依次匹配，应用第一个匹配的规则。
 
-例如传入短链接 `https://example.com/example-apple`，重定向结果为 `https://www.iou.icu/example-apple` 。
+例如传入短链接 `https://example.com/example-apple`，重定向结果为 `https://www.jhw.li/example-apple` 。
 
 如果是 `https://example.com/gg.apple` ，将跳转 ``https://www.google.com/search?q=apple``。你会得到一个快捷搜索。
 
