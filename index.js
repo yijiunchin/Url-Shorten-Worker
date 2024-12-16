@@ -341,17 +341,36 @@ async function handleRequest(request) {
   // console.log(value)
 
   if (location) {
-    if (no_ref == "true") {
-      let no_ref = await fetch("https://Monopink.github.io/Url-Shorten-Worker/no-ref.html")
-      no_ref = await no_ref.text()
-      no_ref = no_ref.replace(/{Replace}/gm, location)
-      return new Response(no_ref, {
+    // Check if it's a valid URL
+    let isValidUrl = false;
+    try {
+      new URL(location);
+      isValidUrl = true;
+    } catch (e) {
+      isValidUrl = false;
+    }
+  
+    if (isValidUrl) {
+      // URL redirect
+      if (no_ref == "true") {
+        let no_ref = await fetch("https://Monopink.github.io/Url-Shorten-Worker/no-ref.html")
+        no_ref = await no_ref.text()
+        no_ref = no_ref.replace(/{Replace}/gm, location)
+        return new Response(no_ref, {
+          headers: {
+            "content-type": "text/html;charset=UTF-8",
+          },
+        })
+      } else {
+        return Response.redirect(location, 302)
+      }
+    } else {
+      // Not a valid URL, return the content directly
+      return new Response(location, {
         headers: {
-          "content-type": "text/html;charset=UTF-8",
+          "content-type": "text/plain;charset=UTF-8",
         },
       })
-    } else {
-      return Response.redirect(location, 302)
     }
   }
   // If request not in kv, return 404
