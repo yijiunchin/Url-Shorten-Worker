@@ -111,8 +111,8 @@ This value contain two regex rules.
 
 The passed short link will be matched sequentially and the first matched rule will be applied.
 
-For example, if the passed short link is `https://example.com/example-apple`, the redirection result will be `https://jhw.li/example-apple`. 
+For example, if the passed short url path is `example-apple`, the redirection result will be `https://jhw.li/example-apple`. 
 
-If the `https://example.com/gg.apple` , will be ``https://www.google.com/search?q=apple``. And you will get a quick search.
+If the path is `gg.apple` , will be ``https://www.google.com/search?q=apple``. And you will get a quick search.
 
 Regex rules have higher priority than short links, so make sure the `json` format is correct and properly escaped.

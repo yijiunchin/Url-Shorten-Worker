@@ -110,8 +110,8 @@ Value = {"^(example.*)": "https://www.jhw.li/$1","^gg\\.(.*)":"https://www.googl
 
 传入的短链接会依次匹配，应用第一个匹配的规则。
 
-例如传入短链接 `https://example.com/example-apple`，重定向结果为 `https://www.jhw.li/example-apple` 。
+例如传入短链接后缀 `example-apple`，重定向结果为 `https://www.jhw.li/example-apple` 。
 
-如果是 `https://example.com/gg.apple` ，将跳转 ``https://www.google.com/search?q=apple``。你会得到一个快捷搜索。
+短链接后缀如果是 `gg.apple` ，将跳转 ``https://www.google.com/search?q=apple``。你会得到一个快捷搜索。
 
 正则表达式优先于短链接，请确保 `json` 格式正确并做好转义。
