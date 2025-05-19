@@ -51,24 +51,24 @@
     <div class="container">
       <div class="py-5 text-center">
         <h1 class="font-weight-bold">短網址產生器</h1>
-<!--         <h2 class="font-weight-bold">縮你的網址</h2> -->
+        <h2 class="font-weight-bold">縮你的網址</h2>
         <h6>短短一串，乾淨俐落！</h6>
-<!--         <h6>短短一串，乾淨俐落！</h6> -->
-<!--         <h6>Go to <a href="https://github.com/yijiunchin/Url-Shorten-Worker">Github</a>.</h6> -->
+        <h6>短短一串，乾淨俐落！</h6>
+        <h6>Go to <a href="https://github.com/yijiunchin/Url-Shorten-Worker">Github</a>.</h6>
       </div>
       
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon2">https://jhw.li/</span>
         </div>
-        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="選填">
+        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="Optional">
       </div>
 
       <div class="mb-3">
         <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="Enter the URL here" oninput="loadUrlList()">
       </div>
 
-      <label class="form-check-label hide" for="credit">密碼</label>
+      <label class="form-check-label hide" for="credit">Password</label>
       <div class="mb-3">
         <input class="form-control hide" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
       </div>
@@ -77,7 +77,7 @@
         <div class="col">
         </div>
         <div class="col-5 text-center">
-          <button class="btn btn-warning btn-block my-2" type="button" onclick='shorturl()' id="addBtn">縮！</button>
+          <button class="btn btn-warning btn-block my-2" type="button" onclick='shorturl()' id="addBtn">Shorten it</button>
         </div>
         <div class="col">
         </div>
@@ -148,5 +148,35 @@
     <script src="https://Monopink.github.io/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
     -->
 
+    <script>
+      // 將 "🔗" 前面改成換行
+      function formatRecords() {
+        document.querySelectorAll('#urlList .list-group-item .col span')
+          .forEach(el => {
+            el.innerHTML = el.textContent.replace(/\s🔗\s/, '<br>🔗 ');
+          });
+      }
+
+      // 頁面初次載入後格式化一次
+      document.addEventListener('DOMContentLoaded', formatRecords);
+
+      // 包裝原本的 reloadUrlList、shorturl 讓每次操作後都補上換行
+      const _reload = window.reloadUrlList;
+      window.reloadUrlList = function(...args) {
+        const ret = _reload.apply(this, args);
+        // 如果有回傳 Promise，就等它跑完
+        if (ret && ret.then) return ret.then(formatRecords);
+        formatRecords();
+        return ret;
+      };
+
+      const _short = window.shorturl;
+      window.shorturl = function(...args) {
+        const ret = _short.apply(this, args);
+        if (ret && ret.then) return ret.then(formatRecords);
+        formatRecords();
+        return ret;
+      };
+    </script>
   </body>
 </html>
