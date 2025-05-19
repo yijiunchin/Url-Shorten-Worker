@@ -65,7 +65,16 @@
       </div>
 
       <div class="mb-3">
-        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="輸入連結" oninput="loadUrlList()">
+        <input
+          type="text"
+          class="form-control"
+          id="longURL"
+          aria-describedby="basic-addon1"
+          placeholder="輸入連結"
+          oninput="loadUrlList()"
+          autofocus
+          onkeydown="if(event.key==='Enter'){ shorturl(); }"
+        >
       </div>
 
       <label class="form-check-label hide" for="credit">密碼</label>
