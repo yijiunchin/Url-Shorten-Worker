@@ -51,10 +51,10 @@
     <div class="container">
       <div class="py-5 text-center">
         <h1 class="font-weight-bold">短網址產生器</h1>
-        <h2 class="font-weight-bold">縮你的網址</h2>
+<!--         <h2 class="font-weight-bold">縮你的網址</h2> -->
         <h6>短短一串，乾淨俐落！</h6>
-        <h6>短短一串，乾淨俐落！</h6>
-        <h6>Go to <a href="https://github.com/yijiunchin/Url-Shorten-Worker">Github</a>.</h6>
+<!--         <h6>短短一串，乾淨俐落！</h6> -->
+<!--         <h6>Go to <a href="https://github.com/yijiunchin/Url-Shorten-Worker">Github</a>.</h6> -->
       </div>
       
       <div class="input-group mb-3">
@@ -117,9 +117,9 @@
         </div>
       </div>
       <div class="d-grid gap-2 mb-5 d-md-flex justify-content-md-end">
-        <button class="btn btn-outline-primary btn-sm mr-2 mb-2" type="button" onclick="loadKV()" id="loadKV2localStgBtn">Download records</button>
-        <button class="btn btn-outline-primary btn-sm mr-2 mb-2" type="button" onclick="reloadUrlList()" id="loadListBtn">Load records</button>
-        <button class="btn btn-outline-danger btn-sm mb-2" type="button" onclick="clearLocalStorage()" id="clearlocalStgBtn">Clear records</button>
+        <button class="btn btn-outline-primary btn-sm mr-2 mb-2" type="button" onclick="loadKV()" id="loadKV2localStgBtn">下載紀錄</button>
+        <button class="btn btn-outline-primary btn-sm mr-2 mb-2" type="button" onclick="reloadUrlList()" id="loadListBtn">重新載入</button>
+        <button class="btn btn-outline-danger btn-sm mb-2" type="button" onclick="clearLocalStorage()" id="clearlocalStgBtn">清除紀錄</button>
       </div>
     </div>
 
@@ -127,15 +127,15 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="resultModalLabel">Result</h5>
+            <h5 class="modal-title" id="resultModalLabel">結果</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body" id="result">No result</div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="Copied!">Copy</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>    
+            <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="Copied!">複製</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>    
           </div>
         </div>
       </div>
