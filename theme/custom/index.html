@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="theme-color" content="#ffc107">
+    <meta http-equiv="content-type" content="txt/html">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="JHS">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon-precomposed" sizes="any" href="https://river.jhw.li/jh-s/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="any"  href="https://river.jhw.li/jh-s/favicon.png">
+    <meta name="description" content="Jianghu URL Shortener">
+    <title>短網址產生器</title>
+
+    <style>
+      .container {
+        max-width: 680px;
+      }
+
+      .hide {
+        display: none!important;
+      }
+
+      #record {
+        display: none;
+        word-break: break-all;
+      }
+
+      @media (prefers-color-scheme: light) { 
+        body {
+          color: #2a2b2c; 
+          background: #f8f9fa;
+        }
+        }
+
+      @media (prefers-color-scheme: light) { 
+        body {
+          color: #2a2b2c; 
+          background: #f8f9fa;
+        }
+        }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="py-5 text-center">
+        <h1 class="font-weight-bold">短網址產生器</h1>
+<!--         <h2 class="font-weight-bold">縮你的網址</h2> -->
+        <h6>短短一串，乾淨俐落！</h6>
+<!--         <h6>短短一串，乾淨俐落！</h6> -->
+<!--         <h6>Go to <a href="https://github.com/yijiunchin/Url-Shorten-Worker">Github</a>.</h6> -->
+      </div>
+      
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon2">https://jhw.li/</span>
+        </div>
+        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="自定義位置（選填）">
+      </div>
+
+      <div class="mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="longURL"
+          aria-describedby="basic-addon1"
+          placeholder="輸入連結"
+          autofocus
+          onkeydown="if(event.key==='Enter'){ shorturl(); }"
+        >
+      </div>
+
+      <label class="form-check-label hide" for="credit">密碼</label>
+      <div class="mb-3">
+        <input class="form-control hide" type="text" value="__PASSWORD__" readonly="true" id="passwordText" aria-describedby="basic-addon3">
+      </div>
+
+      <div class="row align-items-center">
+        <div class="col">
+        </div>
+        <div class="col-5 text-center">
+          <button class="btn btn-warning btn-block my-2" type="button" onclick='shorturl()' id="addBtn">縮！</button>
+        </div>
+        <div class="col">
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div id="record"> 
+
+        <h2><label class="form-check-label" for="credit">縮過的紀錄</label></h2>
+
+        <div class="list-group mb-3" id="urlList">
+          <div class="list-group-item">
+            <div class="row align-items-center">
+              <div class="col">
+                <span>https://jhw.li/</span>
+              </div>
+              <div class="col-auto align-self-start">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick='deleteShortUrl("4rEbzm")'>✘</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-group-item">
+            <div class="row align-items-center">
+              <div class="col">
+                <span>In the labyrinth of Jianghu’s endless ways,
+                a shortcut whispers, shortening the maze.
+                With one swift link, the path is clear—
+                Jianghu’s journey, brought ever near.</span>
+              </div>
+              <div class="col-auto align-self-start">
+                <button type="button" class="btn btn-outline-danger btn-sm" onclick='deleteShortUrl("8NKY34")'>✘</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-grid gap-2 mb-5 d-md-flex justify-content-md-end">
+        <button class="btn btn-outline-primary btn-sm mr-2 mb-2" type="button" onclick="loadKV()" id="loadKV2localStgBtn">下載紀錄</button>
+        <button class="btn btn-outline-primary btn-sm mr-2 mb-2" type="button" onclick="reloadUrlList()" id="loadListBtn">重新載入</button>
+        <button class="btn btn-outline-danger btn-sm mb-2" type="button" onclick="clearLocalStorage()" id="clearlocalStgBtn">清除紀錄</button>
+      </div>
+    </div>
+
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="resultModalLabel">結果</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="result">無結果</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="copyResultBtn"
+              onclick='copyurl("result")'
+              data-toggle="popover"
+              data-placement="bottom"
+              data-content="已複製"
+            >複製</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>         
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/yijiunchin/Url-Shorten-Worker__REPO_VERSION__/main.min.js" crossorigin="anonymous"></script>
+    <!--
+    <script src="https://Monopink.github.io/Url-Shorten-Worker/main.js" crossorigin="anonymous"></script>
+    -->
+
+    <script>
+      // 將 "🔗" 前面改成換行
+      function formatRecords() {
+        document.querySelectorAll('#urlList .list-group-item .col span')
+          .forEach(el => {
+            el.innerHTML = el.textContent.replace(/\s🔗\s/, '<br>🔗 ');
+          });
+      }
+
+      // 頁面初次載入後格式化一次
+      document.addEventListener('DOMContentLoaded', formatRecords);
+
+      // 包裝原本的 reloadUrlList、shorturl 讓每次操作後都補上換行
+      const _reload = window.reloadUrlList;
+      window.reloadUrlList = function(...args) {
+        const ret = _reload.apply(this, args);
+        // 如果有回傳 Promise，就等它跑完
+        if (ret && ret.then) return ret.then(formatRecords);
+        formatRecords();
+        return ret;
+      };
+
+      const _short = window.shorturl;
+      window.shorturl = function(...args) {
+        const ret = _short.apply(this, args);
+        if (ret && ret.then) return ret.then(formatRecords);
+        formatRecords();
+        return ret;
+      };
+    </script>
+
+    <script>
+      // 當 Modal 顯示後，自動聚焦到「複製」按鈕
+      $('#resultModal').on('shown.bs.modal', function () {
+        $('#copyResultBtn').trigger('focus');
+      });
+    </script>
+  </body>
+</html>
