@@ -61,11 +61,11 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon2">https://jhw.li/</span>
         </div>
-        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="選填">
+        <input type="text" class="form-control" id="keyPhrase" aria-describedby="basic-addon2" placeholder="自定義位置（選填）">
       </div>
 
       <div class="mb-3">
-        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="Enter the URL here" oninput="loadUrlList()">
+        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon1" placeholder="輸入連結" oninput="loadUrlList()">
       </div>
 
       <label class="form-check-label hide" for="credit">密碼</label>
@@ -132,7 +132,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body" id="result">No result</div>
+          <div class="modal-body" id="result">無結果</div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" onclick='copyurl("result")' data-toggle="popover" data-placement="bottom" data-content="Copied!">複製</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>    
