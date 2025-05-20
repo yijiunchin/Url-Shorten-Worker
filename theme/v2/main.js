@@ -195,7 +195,7 @@ function addUrlToDOMList(key, longUrl) {
     <div class="row align-items-center">
       <div class="col">
         <strong id="short-url-text-${key}"><a href="${shortUrl}" target="_blank">${shortUrl}</a></strong>
-        ${displayLongUrl}
+        <div class="record-long-url">${displayLongUrl}</div>
       </div>
       <div class="col-auto align-self-start">
         <button type="button" class="btn btn-outline-secondary btn-sm mr-1" id="copyBtn-${key}" title="複製短網址">📋</button>
