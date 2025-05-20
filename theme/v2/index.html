@@ -55,13 +55,14 @@
         word-break: break-all;
       }
       .list-group-item span a { /* 讓短網址本身可以點擊 */
-          color: #007bff;
+          color: #71cbff;
           text-decoration: none;
       }
       .list-group-item span a:hover {
+          color: #70aacc;
           text-decoration: underline;
       }
-      .list-group-item.record-long-url {
+      .list-group-item .record-long-url small {
           font-size: 0.8rem;
           color: #6c757d;
       }
@@ -90,7 +91,7 @@
             <input
                 type="url" class="form-control"
                 id="longURL"
-                placeholder="貼上你那長～到爆的網址"
+                placeholder="貼上你那很長～的網址"
                 aria-label="長網址"
                 autofocus
             > </div>
@@ -112,11 +113,13 @@
 
         <hr class="my-4">
 
-        <div id="record" style="display: none;"> <h2><label class="form-check-label" for="urlList">✨ 你縮過的紀錄 ✨</label></h2>
-            <div class="list-group mb-3" id="urlList">
-                </div>
-            <div class="d-flex justify-content-end mb-5"> <button class="btn btn-outline-danger btn-sm" type="button" id="clearLocalBtn">清除本機紀錄</button>
-            </div>
+        <div id="record" style="display: none;">
+          <div class="py-4 text-center">
+            <h2><label class="form-check-label" for="urlList">✨ 你縮過的紀錄 ✨</label></h2>
+          </div>
+          <div class="list-group mb-3" id="urlList"></div>
+          <div class="d-flex justify-content-end mb-5"> <button class="btn btn-outline-danger btn-sm" type="button" id="clearLocalBtn">清除本機紀錄</button>
+          </div>
         </div>
     </div>
 
